@@ -138,19 +138,22 @@ main(int argc, char **argv)
     
    {
        const char *com;
-       Epeg_Thumbnail_Info info;
        int w, h;
        int scaled_w, scaled_h;
        
-       com = epeg_comment_get(im);
-       if (verbose_flag) if (com) printf("Comment: %s\n", com);
-       epeg_thumbnail_comments_get(im, &info);
-       if (info.mimetype) {
-	   if (verbose_flag) printf("Thumb Mimetype: %s\n", info.mimetype);
-	   if (verbose_flag) if (info.uri) printf("Thumb URI: %s\n", info.uri);
-	   if (verbose_flag) printf("Thumb Mtime: %llu\n", info.mtime);
-	   if (verbose_flag) printf("Thumb Width: %i\n", info.w);
-	   if (verbose_flag) printf("Thumb Height: %i\n", info.h);
+       if (verbose_flag) {
+	   Epeg_Thumbnail_Info info;
+
+       	   com = epeg_comment_get(im);
+           if (com) printf("Comment: %s\n", com);
+           epeg_thumbnail_comments_get(im, &info);
+           if (info.mimetype) {
+	        printf("Thumb Mimetype: %s\n", info.mimetype);
+	        if (info.uri) printf("Thumb URI: %s\n", info.uri);
+	        printf("Thumb Mtime: %llu\n", info.mtime);
+	        printf("Thumb Width: %i\n", info.w);
+	        printf("Thumb Height: %i\n", info.h);
+            }
        }
        epeg_size_get(im, &w, &h);
        if (verbose_flag) printf("Image size: %ix%i\n", w, h);
